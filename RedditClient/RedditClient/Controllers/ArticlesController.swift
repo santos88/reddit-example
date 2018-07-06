@@ -10,4 +10,14 @@ import Foundation
 
 class ArticlesController {
 
+    var cache = [ArticleModel]()
+
+    func loadArticles(completion: @escaping ([ArticleModel]?, Error?) -> Void) {
+        ArticlesAPI().loadArticles(page: 1) { [weak self] (articles, error) in
+            if let records = articles {
+                self?.cache = records
+            }
+            completion(self?.cache, error)
+        }
+    }
 }

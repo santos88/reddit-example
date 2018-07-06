@@ -8,9 +8,13 @@
 
 import Foundation
 
+// TODO
+// The purpose of this APIProtocol is to be replaced/injected on the Unit Tests
+// protocol APIProtocol {
+//    func fetchAll(completion: @escaping ([Any]?, Error?) -> Void)
+// }
+
 class ArticlesAPI {
-    
-    var cache = [ArticleModel]()
     
     func loadArticles(page:Int, completion: @escaping ([ArticleModel]?, Error?) -> Void) {
         

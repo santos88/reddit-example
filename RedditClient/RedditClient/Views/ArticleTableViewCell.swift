@@ -22,6 +22,13 @@ class ArticleTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+    func configure(model:ArticleModel) {
+        usernameLabel.text = model.author
+        timeLabel.text = model.created.description
+        descriptionLabel.text = model.title
+        commentsLabel.text = String(model.num_comments)
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
