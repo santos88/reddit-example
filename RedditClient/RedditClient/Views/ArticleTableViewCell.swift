@@ -70,7 +70,7 @@ class ArticleTableViewCell: UITableViewCell {
         }
         
         let session = URLSession(configuration: .default)
-        imageFromUrlTask = session.dataTask(with: imageURL) { (data, response, error) in
+        imageFromUrlTask = session.dataTask(with: imageURL) {[weak self] (data, response, error) in
             if let e = error {
                 print("Error Occurred: \(e)")
                 
@@ -79,7 +79,7 @@ class ArticleTableViewCell: UITableViewCell {
                     if let imageData = data {
                         let image = UIImage(data: imageData)
                         DispatchQueue.main.async {
-                            self.thumbnailImage.image = image
+                            self?.thumbnailImage.image = image
                         }
                     } else {
                         print("Image file is currupted")

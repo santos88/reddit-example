@@ -28,6 +28,11 @@ class DetailViewController: UIViewController {
         loadImage()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        imageFromUrlTask?.cancel()
+    }
+    
     // TODO: THIS METHOD SHOULD BE MOVED INTO OTHER CLASS
     func loadImage() {
         guard let stringURL = article?.thumbnail, let imageURL = URL(string:stringURL) else {
@@ -35,7 +40,7 @@ class DetailViewController: UIViewController {
         }
         
         let session = URLSession(configuration: .default)
-        imageFromUrlTask = session.dataTask(with: imageURL) { (data, response, error) in
+        imageFromUrlTask = session.dataTask(with: imageURL) {[weak self] (data, response, error) in
             if let e = error {
                 print("Error Occurred: \(e)")
                 
@@ -44,7 +49,7 @@ class DetailViewController: UIViewController {
                     if let imageData = data {
                         let image = UIImage(data: imageData)
                         DispatchQueue.main.async {
-                            self.mainImage.image = image
+                            self?.mainImage.image = image
                         }
                     } else {
                         print("Image file is currupted")
