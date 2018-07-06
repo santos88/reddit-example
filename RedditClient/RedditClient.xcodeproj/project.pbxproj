@@ -14,6 +14,7 @@
 		D6E993EA20EFA89A00290B15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6E993E920EFA89A00290B15 /* Assets.xcassets */; };
 		D6E993ED20EFA89A00290B15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E993EB20EFA89A00290B15 /* LaunchScreen.storyboard */; };
 		D6E993F820EFA89B00290B15 /* RedditClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E993F720EFA89B00290B15 /* RedditClientTests.swift */; };
+		D6E9940720EFAC0900290B15 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E9940620EFAC0900290B15 /* ArticleTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		D6E993F320EFA89B00290B15 /* RedditClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedditClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E993F720EFA89B00290B15 /* RedditClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditClientTests.swift; sourceTree = "<group>"; };
 		D6E993F920EFA89B00290B15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6E9940620EFAC0900290B15 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			children = (
 				D6E993E220EFA89900290B15 /* MasterViewController.swift */,
 				D6E993E420EFA89900290B15 /* DetailViewController.swift */,
+				D6E9940620EFAC0900290B15 /* ArticleTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6E9940720EFAC0900290B15 /* ArticleTableViewCell.swift in Sources */,
 				D6E993E520EFA89A00290B15 /* DetailViewController.swift in Sources */,
 				D6E993E320EFA89900290B15 /* MasterViewController.swift in Sources */,
 				D6E993E120EFA89900290B15 /* AppDelegate.swift in Sources */,
