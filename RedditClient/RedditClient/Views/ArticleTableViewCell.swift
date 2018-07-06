@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ArticleCellProtocol:class {
+    func remove(model:ArticleModel?)
+}
+
 class ArticleTableViewCell: UITableViewCell {
 
     @IBOutlet weak var unreadImage: UIImageView!
@@ -16,6 +20,9 @@ class ArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var commentsLabel: UILabel!
+
+    var articleModel:ArticleModel?
+    weak var delegate:ArticleCellProtocol?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +30,8 @@ class ArticleTableViewCell: UITableViewCell {
     }
 
     func configure(model:ArticleModel) {
+        
+        articleModel = model
         usernameLabel.text = model.author
         timeLabel.text = model.created.description
         descriptionLabel.text = model.title
@@ -39,9 +48,9 @@ class ArticleTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
     @IBAction func tapDismiss(_ sender: Any) {
+        delegate?.remove(model: self.articleModel)
     }
 }

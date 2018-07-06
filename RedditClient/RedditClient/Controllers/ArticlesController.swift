@@ -24,4 +24,12 @@ class ArticlesController {
     func articleWasReadAtIndex(row:Int) {
         cache[row].wasRead = true;
     }
+    
+    func remove(article:ArticleModel) {
+        cache = cache.filter { $0 != article }
+    }
+    
+    func removeAllArticles() {
+        cache.removeAll()
+    }
 }

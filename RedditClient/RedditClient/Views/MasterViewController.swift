@@ -8,42 +8,35 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
-
+class MasterViewController: UITableViewController, ArticleCellProtocol {
+    
     var detailViewController: DetailViewController? = nil
     var controller = ArticlesController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureNavigation()
         controller.loadArticles { [weak self] (articles, error) in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }
         
-        // Do any additional setup after loading the view, typically from a nib.
-//        navigationItem.leftBarButtonItem = editButtonItem
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-//        navigationItem.rightBarButtonItem = addButton
+    }
+
+    func configureNavigation() {
+        let addButton: UIBarButtonItem = UIBarButtonItem(title: "Dismiss All", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.dismisAll(_:)))
+        
+        navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
     }
-
-    // MARK: - Segues
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let model = controller.cache[indexPath.row]
-                let vc = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                vc.article = model
-                vc.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                vc.navigationItem.leftItemsSupplementBackButton = true
-            }
-        }
+    
+    @objc func dismisAll(_ button:UIBarButtonItem!){
+        controller.removeAllArticles()
+        tableView.reloadData()
     }
 
     // MARK: - Table View
@@ -61,6 +54,7 @@ class MasterViewController: UITableViewController {
 
         let model = controller.cache[indexPath.row]
         cell.configure(model: model)
+        cell.delegate = self
         
         return cell
     }
@@ -68,6 +62,25 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         controller.articleWasReadAtIndex(row: indexPath.row)
         tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+
+    func remove(model: ArticleModel?) {
+        if let article = model {
+            controller.remove(article: article)
+            tableView.reloadData()
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let model = controller.cache[indexPath.row]
+                let vc = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+                vc.article = model
+                vc.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                vc.navigationItem.leftItemsSupplementBackButton = true
+            }
+        }
     }
 
 }
