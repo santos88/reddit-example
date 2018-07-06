@@ -21,6 +21,8 @@ class ArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var commentsLabel: UILabel!
 
+    var imageFromUrlTask: URLSessionDataTask?
+    
     var articleModel:ArticleModel?
     weak var delegate:ArticleCellProtocol?
     
@@ -39,10 +41,17 @@ class ArticleTableViewCell: UITableViewCell {
         if let wasRead = model.wasRead {
             unreadImage.isHidden = wasRead
         }
+        loadImage()
     }
     
     override func prepareForReuse() {
         unreadImage.isHidden = false
+        thumbnailImage.image = nil;
+        usernameLabel.text = ""
+        timeLabel.text = ""
+        descriptionLabel.text = ""
+        commentsLabel.text = ""
+        imageFromUrlTask?.cancel()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -52,5 +61,34 @@ class ArticleTableViewCell: UITableViewCell {
 
     @IBAction func tapDismiss(_ sender: Any) {
         delegate?.remove(model: self.articleModel)
+    }
+    
+    // TODO: THIS METHOD SHOULD BE MOVED INTO OTHER CLASS
+    func loadImage() {
+        guard let stringURL = articleModel?.thumbnail, let imageURL = URL(string:stringURL) else {
+            return;
+        }
+        
+        let session = URLSession(configuration: .default)
+        imageFromUrlTask = session.dataTask(with: imageURL) { (data, response, error) in
+            if let e = error {
+                print("Error Occurred: \(e)")
+                
+            } else {
+                if (response as? HTTPURLResponse) != nil {
+                    if let imageData = data {
+                        let image = UIImage(data: imageData)
+                        DispatchQueue.main.async {
+                            self.thumbnailImage.image = image
+                        }
+                    } else {
+                        print("Image file is currupted")
+                    }
+                } else {
+                    print("No response from server")
+                }
+            }
+        }
+        imageFromUrlTask?.resume()
     }
 }
