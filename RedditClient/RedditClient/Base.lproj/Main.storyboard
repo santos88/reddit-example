@@ -46,10 +46,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uwU-8B-9kc">
-                                <rect key="frame" x="16" y="115" width="343" height="333.5"/>
+                                <rect key="frame" x="16" y="115" width="343" height="200"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Multiline label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gu3-Xn-sNH">
-                                <rect key="frame" x="16" y="464.5" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="331" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -66,7 +66,7 @@
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="gu3-Xn-sNH" secondAttribute="trailing" constant="16" id="mNx-EK-FbZ"/>
                             <constraint firstItem="uwU-8B-9kc" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" constant="16" id="moB-rz-YO5"/>
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="uwU-8B-9kc" secondAttribute="trailing" constant="16" id="s6f-nh-ne3"/>
-                            <constraint firstItem="uwU-8B-9kc" firstAttribute="height" secondItem="svH-Pt-448" secondAttribute="height" multiplier="0.5" id="tgX-fI-yWw"/>
+                            <constraint firstItem="uwU-8B-9kc" firstAttribute="height" secondItem="svH-Pt-448" secondAttribute="height" multiplier="0.3" id="tgX-fI-yWw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VUw-jc-0yf"/>
                     </view>
