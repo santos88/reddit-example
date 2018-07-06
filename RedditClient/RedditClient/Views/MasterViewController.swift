@@ -15,22 +15,34 @@ class MasterViewController: UITableViewController, ArticleCellProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigation()
-        controller.loadArticles { [weak self] (articles, error) in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-        
+        configureUI()
+        fetchArticles()
     }
 
-    func configureNavigation() {
+    func configureUI() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+
         let addButton: UIBarButtonItem = UIBarButtonItem(title: "Dismiss All", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.dismisAll(_:)))
         
         navigationItem.rightBarButtonItem = addButton
+        
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+        }
+    }
+    
+    @objc private func refreshData(_ sender: Any) {
+        fetchArticles()
+    }
+    
+    func fetchArticles() {
+        controller.loadArticles { [weak self] (articles, error) in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+                self?.tableView.refreshControl?.endRefreshing()
+            }
         }
     }
     
