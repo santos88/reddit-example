@@ -27,6 +27,13 @@ class ArticleTableViewCell: UITableViewCell {
         timeLabel.text = model.created.description
         descriptionLabel.text = model.title
         commentsLabel.text = String(model.num_comments)
+        if let wasRead = model.wasRead {
+            unreadImage.isHidden = wasRead
+        }
+    }
+    
+    override func prepareForReuse() {
+        unreadImage.isHidden = false
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

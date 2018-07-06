@@ -14,7 +14,7 @@ struct ArticleModel:Codable {
     var created:Date
     var thumbnail:String
     var num_comments:Int
-    var wasReaded:Bool?
+    var wasRead:Bool?
 }
 
 struct ArticlesServerResponse:Codable {

@@ -20,4 +20,8 @@ class ArticlesController {
             completion(self?.cache, error)
         }
     }
+    
+    func articleWasReadAtIndex(row:Int) {
+        cache[row].wasRead = true;
+    }
 }
